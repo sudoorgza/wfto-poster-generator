@@ -1,0 +1,10 @@
+<ion-view title="WFTO - Poster Generator">
+    <ion-content padding="true" class="has-header" ng-controller="PosterGeneratorCtrl">
+      <!--<div>{{urlForLastImage}}</div>-->
+        <div style="margin: 0 auto; width:90%;">
+          <img src="img/poster-template.png" width="100%" height="auto" style="width: 100%; height: auto; background-image:url({{urlForLastImage}}); background-size: contain; background-repeat: no-repeat; position: relative;">
+        </div>
+        <button class="button button-positive button-block icon-right ion-image" ng-click="addMedia()">Choose image</button>
+        <button class="button button-calm button-block icon-right ion-share" ng-click="shareImage()">Share</button>
+    </ion-content>
+</ion-view>
