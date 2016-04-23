@@ -79,10 +79,16 @@ angular.module('app.services', ['ngCordova'])
       var options = optionsForType(type);
 
       $cordovaCamera.getPicture(options).then(function(imageUrl) {
-        console.log("cordovaCamera.getPicture\n"+imageUrl);
+        console.log("cordovaCamera.getPicture\nimageURL\n"+imageUrl);
+        window.FilePath.resolveNativePath(imageUrl, function(nativePath) {
+          console.log("resolveNativePath Success\n"+nativePath);
+        }, function(err) {
+          console.log("resolveNativePath Error\n"+nativePath);
+        });
         var name = imageUrl.substr(imageUrl.lastIndexOf('/') + 1);
         var namePath = imageUrl.substr(0, imageUrl.lastIndexOf('/') + 1);
         var newName = makeid() + name;
+        console.log("copeFile\nname\n"+name+"\nnewName\n"+newName);
         $cordovaFile.copyFile(namePath, name, cordova.file.dataDirectory, newName)
           .then(function(info) {
             console.log("calling storeImage\n"+newName);
