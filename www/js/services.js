@@ -82,21 +82,21 @@ angular.module('app.services', ['ngCordova'])
         console.log("cordovaCamera.getPicture\nimageURL\n"+imageUrl);
         window.FilePath.resolveNativePath(imageUrl, function(nativePath) {
           console.log("resolveNativePath Success\n"+nativePath);
+          var name = nativePath.substr(nativePath.lastIndexOf('/') + 1);
+          var namePath = nativePath.substr(0, nativePath.lastIndexOf('/') + 1);
+          var newName = makeid() + name;
+          console.log("copyFile\nname\n"+name+"\nnewName\n"+newName);
+          $cordovaFile.copyFile(namePath, name, cordova.file.dataDirectory, newName)
+            .then(function(info) {
+              console.log("calling storeImage\n"+newName);
+              FileService.storeImage(newName);
+              resolve();
+            }, function(e) {
+              reject();
+            });
         }, function(err) {
           console.log("resolveNativePath Error\n"+nativePath);
         });
-        var name = imageUrl.substr(imageUrl.lastIndexOf('/') + 1);
-        var namePath = imageUrl.substr(0, imageUrl.lastIndexOf('/') + 1);
-        var newName = makeid() + name;
-        console.log("copeFile\nname\n"+name+"\nnewName\n"+newName);
-        $cordovaFile.copyFile(namePath, name, cordova.file.dataDirectory, newName)
-          .then(function(info) {
-            console.log("calling storeImage\n"+newName);
-            FileService.storeImage(newName);
-            resolve();
-          }, function(e) {
-            reject();
-          });
       });
     })
   }

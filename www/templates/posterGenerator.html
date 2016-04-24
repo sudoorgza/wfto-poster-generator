@@ -1,10 +1,30 @@
-<ion-view title="WFTO - Poster Generator">
-    <ion-content padding="true" class="has-header" ng-controller="PosterGeneratorCtrl">
-      <!--<div>{{urlForLastImage}}</div>-->
-        <div style="margin: 0 auto; width:90%;">
-          <img src="img/poster-template.png" width="100%" height="auto" style="width: 100%; height: auto; background-image:url({{urlForLastImage}}); background-size: contain; background-repeat: no-repeat; position: relative;">
+<ion-view title="WFTO - Poster Generator" hide-nav-bar="true">
+  <ion-content scroll="x" has-bouncing="true" padding="true" ng-controller="PosterGeneratorCtrl">
+    <div style="width: 23%; height: 100%; margin-left:2%; margin-right:0px; float: right">
+      <div class="card">
+        <div style="width: 100%;  border-color: #e6b500; background-color: #ffc900;
+    color: #fff; text-align: center;">
+          <h3 style="color: #fff;padding-top: 5px; padding-bottom: 5px;"
+          class="title">
+            World Fair Trade Day
+          </h3>
         </div>
-        <button class="button button-positive button-block icon-right ion-image" ng-click="addMedia()">Choose image</button>
-        <button class="button button-calm button-block icon-right ion-share" ng-click="shareImage()">Share</button>
-    </ion-content>
-</ion-view>
+        <div style="margin-top: 5px;margin-left:5%; margin-right:5%;">
+          <h4 style="text-align: center; ">
+            <span style="font-style: italic;">14 May 2016</span><!--<br>
+            Human chains for <span style="color: #fdac33;">Fair Trade</span>
+            and <span style="color: #fdac33;">Planet</span>-->
+          <h4>
+        </div>
+      </div>
+      <div>
+        <button class="button button-positive button-block icon-right ion-image" ng-click="addMedia()">Pick image</button>
+        <button class="button button-calm button-block icon-right ion-share" ng-click="shareImage()" ng-disabled="false">Share</button>
+        <button class="button button-energized button-block icon-right ion-link" ng-click="goWfto()">WFTO</button>
+      </div>
+    </div>
+    <div style="margin: 0 0; width:75%">
+      <img src="img/poster-template-landscape.png" style="width: 100%; height: auto; background-image:url({{urlForLastImage}}); background-position: center center; background-size: cover; background-repeat: no-repeat; position: relative;">
+    </div>
+  </ion-content>
+</ion-view><canvas id="tempCanvas"></canvas>
