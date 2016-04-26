@@ -20,45 +20,62 @@ angular.module('app.controllers', [])
   $scope.shareImage= function(){
     console.log("createOverlay");
 
-    $scope.showAlert();
+    // $scope.showAlert();
+    // return;
+
+    var baseImage =  new Image();
+    var templateImage = new Image();
+
+    baseImage.src = $scope.urlForLastImage;
+    templateImage.src = $scope.urlForOverlay;
+
+    var width = baseImage.width;
+    var height = baseImage.height;
+    canvas.width = templateImage.width;
+    canvas.height = templateImage.height;
+
+    console.log(canvas);
+
+    context.drawImage(baseImage,0,0,1200,800);
+    context.drawImage(templateImage,0,0,1200,800);
+
+    // context.font = "100px impact";
+    // textWidth = context.measureText($scope.frase).width;
+    //
+    // if (textWidth > canvas.offsetWidth) {
+    //     context.font = "40px impact";
+    // }
+    // context.textAlign = 'center';
+    // context.fillStyle = 'white';
+    //
+    // context.fillText($scope.textOverlay,canvas.width/2,canvas.height*0.8);
+
+
+    window.canvas2ImagePlugin.saveImageDataToLibrary(
+            function(msg){
+              console.log("canvas2ImagePlugin success");
+                console.log(msg);
+            },
+            function(err){
+              console.log("canvas2ImagePlugin failure");
+                console.log(err);
+            },
+            canvas
+        );
+
     return;
+    var imgURI = canvas.toDataURL("image/png");
+    console.log(canvas);
 
-          var baseImage =  new Image();
-          var templateImage = new Image();
-
-          baseImage.src = $scope.urlForLastImage;
-          templateImage.src = $scope.urlForOverlay;
-
-          var width = baseImage.width;
-          var height = baseImage.height;
-          canvas.width = templateImage.width;
-          canvas.height = templateImage.height;
-
-          console.log(canvas);
-
-          context.drawImage(baseImage,0,0,1200,800);
-          context.drawImage(templateImage,0,0,1200,800);
-
-          // context.font = "100px impact";
-          // textWidth = context.measureText($scope.frase).width;
-          //
-          // if (textWidth > canvas.offsetWidth) {
-          //     context.font = "40px impact";
-          // }
-          // context.textAlign = 'center';
-          // context.fillStyle = 'white';
-          //
-          // context.fillText($scope.textOverlay,canvas.width/2,canvas.height*0.8);
-
-          var imgURI = canvas.toDataURL("image/png");
-          console.log(canvas);
-
-          $timeout( function(){
-            console.log("downloading")
-            window.location.href = imgURI;
-              //$scope.image = imgURI;
-          }, 200);
-        }
+    $timeout( function(){
+      console.log("downloading");
+      console.log("imgURI:\n"+imgURI);
+      var url = imgURI.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+      window.open(url);
+      window.location.href = imgURI;
+        //$scope.image = imgURI;
+    }, 200);
+  }
 
   $ionicPlatform.ready(function() {
       $scope.images = FileService.images();
