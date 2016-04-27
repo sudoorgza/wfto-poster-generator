@@ -36,8 +36,8 @@ angular.module('app.controllers', [])
 
     console.log(canvas);
 
-    context.drawImage(baseImage,0,0,1200,800);
-    context.drawImage(templateImage,0,0,1200,800);
+    context.drawImage(baseImage,0,0,2000,1414);
+    context.drawImage(templateImage,0,0,2000,1414);
 
     // context.font = "100px impact";
     // textWidth = context.measureText($scope.frase).width;
@@ -50,41 +50,20 @@ angular.module('app.controllers', [])
     //
     // context.fillText($scope.textOverlay,canvas.width/2,canvas.height*0.8);
 
-
     window.canvas2ImagePlugin.saveImageDataToLibrary(
-            function(msg){
-              console.log("canvas2ImagePlugin success");
-              console.log(msg);
-              $scope.sharedImage = "file://" + msg;
-              // window.location.href = "file://" + msg;
-              var options = {
-                message: 'share this', // not supported on some apps (Facebook, Instagram)
-                subject: 'the subject', // fi. for email
-                files: [msg], // an array of filenames either locally or remotely
-                url: 'https://www.wfto.com',
-                chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
-              }
+      function(msg){
+        console.log("canvas2ImagePlugin success");
+        console.log(msg);
+        $scope.sharedImage = "file://" + msg;
+        $cordovaSocialSharing.share("I'm part of the human chain for Fair Trade and Planet #FairTradeDay #AgentForChange", null, $scope.sharedImage, null);
 
-              var onSuccess = function(result) {
-                console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-                console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
-              }
-
-              var onError = function(msg) {
-                console.log("Sharing failed with message: " + msg);
-              }
-
-              // window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
-              console.log($cordovaSocialSharing);
-              $cordovaSocialSharing.shareWithOptions(options);
-
-            },
-            function(err){
-              console.log("canvas2ImagePlugin failure");
-                console.log(err);
-            },
-            canvas
-        );
+      },
+      function(err){
+        console.log("canvas2ImagePlugin failure");
+        console.log(err);
+      },
+      canvas
+    );
 
     return;
     var imgURI = canvas.toDataURL("image/png");
