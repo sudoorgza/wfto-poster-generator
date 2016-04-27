@@ -19,7 +19,7 @@
       </div>
       <div>
         <button class="button button-positive button-block icon-right ion-image" ng-click="addMedia()">Pick image</button>
-        <button class="button button-calm button-block icon-right ion-share" ng-click="shareImage()" ng-disabled="false">Share</button>
+        <button class="button button-calm button-block icon-right ion-share" ng-click="shareImage()" ng-disabled="!imageLoaded">Share</button>
         <button class="button button-energized button-block icon-right ion-link" ng-click="goWfto()">WFTO</button>
       </div>
     </div>
