@@ -8,7 +8,7 @@ angular.module('app.controllers', [])
   var baseImage =  new Image();
   var templateImage = new Image();
   var SHARING_TEXT = "I'm part of the human chain for Fair Trade and Planet \
-    #FairTradeDay #AgentForChange";
+#FairTradeDay #AgentForChange";
 
   var updateCanvas = function() {
     baseImage.src = $scope.urlForLastImage;
