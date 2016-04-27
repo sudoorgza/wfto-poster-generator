@@ -5,67 +5,70 @@ angular.module('app.controllers', [])
 
   var canvas = document.getElementById('tempCanvas');
   var context = canvas.getContext('2d');
+  var baseImage =  new Image();
+  var templateImage = new Image();
+  var SHARING_TEXT = "I'm part of the human chain for Fair Trade and Planet \
+    #FairTradeDay #AgentForChange";
 
-  $scope.showAlert = function() {
-    var alertPopup = $ionicPopup.alert({
-      title: 'Coming soon',
-      template: 'Keep your eyes peeled sharing will be coming soon!'
-    });
-
-    alertPopup.then(function(res) {
-      console.log('Showing alert');
-    });
-  };
-
-  $scope.shareImage= function(){
-    console.log("createOverlay");
-    $ionicLoading.show({
-      template: 'Loading...'
-    });
-    console.log("show my spinner");
-
-    // $scope.showAlert();
-    // return;
-
-    var baseImage =  new Image();
-    var templateImage = new Image();
-
+  var updateCanvas = function() {
     baseImage.src = $scope.urlForLastImage;
     templateImage.src = $scope.urlForOverlay;
-
     var width = baseImage.width;
     var height = baseImage.height;
     canvas.width = templateImage.width;
     canvas.height = templateImage.height;
-
-    console.log(canvas);
-
     context.drawImage(baseImage,0,0,2000,1414);
     context.drawImage(templateImage,0,0,2000,1414);
+  }
 
-    window.canvas2ImagePlugin.saveImageDataToLibrary(
-      function(msg){
-        console.log("canvas2ImagePlugin success");
-        console.log(msg);
-        $ionicLoading.hide();
-        $scope.sharedImage = "file://" + msg;
-        $cordovaSocialSharing.share("I'm part of the human chain for Fair Trade and Planet #FairTradeDay #AgentForChange", null, $scope.sharedImage, null);
-      },
-      function(err){
-        console.log("canvas2ImagePlugin failure");
-        console.log(err);
-      },
-      canvas
-    );
+  var sharedImageChanged = function() {
+    return !$scope.sharedImage;
+  }
+
+  var saveAndShareImage = function() {
+    if (!sharedImageChanged()) {
+      console.log("sharedImage exists");
+      $cordovaSocialSharing.share(SHARING_TEXT, null, $scope.sharedImage, null);
+      $ionicLoading.hide();
+    } else {
+      console.log("sharedImage new");
+      updateCanvas();
+      window.canvas2ImagePlugin.saveImageDataToLibrary(
+        function(fileName){
+          console.log("canvas2ImagePlugin success");
+          console.log(fileName);
+          $scope.sharedImage = "file://" + fileName;
+          $cordovaSocialSharing.share(SHARING_TEXT, null, $scope.sharedImage, null);
+          $ionicLoading.hide();
+        },
+        function(err){
+          console.log("canvas2ImagePlugin failure");
+          console.log(err);
+          $ionicLoading.hide();
+        },
+        canvas
+      );
+    }
+  }
+
+  $scope.shareImage = function(){
+    $ionicLoading.show({
+      template: 'Preparing image<br>this may take a while...'
+    });
+    if (sharedImageChanged()) {
+      setTimeout(saveAndShareImage, 100);
+    } else {
+      saveAndShareImage();
+    }
   }
 
   $ionicPlatform.ready(function() {
       $scope.images = FileService.images();
       $scope.urlForLastImage = "img/wfto-logo-landscape.png";
       $scope.urlForOverlay = "img/poster-template-landscape.png";
-      //$scope.urlForLastImage = $scope.urlForImage(FileService.lastImage());
-      $scope.$apply();
       $scope.sharedImage = "";
+      $scope.imageLoaded = false;
+      $scope.$apply();
     });
 
     $scope.urlForImage = function(imageName) {
@@ -93,9 +96,13 @@ angular.module('app.controllers', [])
     }
 
     $scope.addImage = function(type) {
+      $scope.sharedImage = "";
       ImageService.handleMediaDialog(type).then(function() {
         $scope.hideSheet();
         $scope.urlForLastImage = $scope.urlForImage(FileService.lastImage());
+        if (!$scope.imageLoaded) {
+          $scope.imageLoaded = true;
+        }
         console.log("FileService.lastImage\n"+FileService.lastImage())
         console.log("$scope.urlForLastImage\n"+$scope.urlForLastImage);
       });
