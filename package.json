@@ -22,7 +22,15 @@
     "com.ionic.keyboard",
     "cordova-plugin-camera",
     "cordova-plugin-file",
-    "cordova-plugin-filepath"
+    "cordova-plugin-filepath",
+    {
+      "locator": "https://github.com/devgeeks/Canvas2ImagePlugin.git",
+      "id": "org.devgeeks.Canvas2ImagePlugin"
+    },
+    {
+      "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
+      "id": "cordova-plugin-x-socialsharing"
+    }
   ],
   "cordovaPlatforms": [
     "android"
