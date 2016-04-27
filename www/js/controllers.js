@@ -1,7 +1,7 @@
 angular.module('app.controllers', [])
 
 .controller('PosterGeneratorCtrl', function($scope, $ionicPlatform, $cordovaSocialSharing,
-  $ionicActionSheet, $location, $timeout, $ionicPopup, FileService, ImageService) {
+  $ionicLoading, $ionicActionSheet, $location, $timeout, $ionicPopup, FileService, ImageService) {
 
   var canvas = document.getElementById('tempCanvas');
   var context = canvas.getContext('2d');
@@ -19,6 +19,10 @@ angular.module('app.controllers', [])
 
   $scope.shareImage= function(){
     console.log("createOverlay");
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    console.log("show my spinner");
 
     // $scope.showAlert();
     // return;
@@ -39,24 +43,13 @@ angular.module('app.controllers', [])
     context.drawImage(baseImage,0,0,2000,1414);
     context.drawImage(templateImage,0,0,2000,1414);
 
-    // context.font = "100px impact";
-    // textWidth = context.measureText($scope.frase).width;
-    //
-    // if (textWidth > canvas.offsetWidth) {
-    //     context.font = "40px impact";
-    // }
-    // context.textAlign = 'center';
-    // context.fillStyle = 'white';
-    //
-    // context.fillText($scope.textOverlay,canvas.width/2,canvas.height*0.8);
-
     window.canvas2ImagePlugin.saveImageDataToLibrary(
       function(msg){
         console.log("canvas2ImagePlugin success");
         console.log(msg);
+        $ionicLoading.hide();
         $scope.sharedImage = "file://" + msg;
         $cordovaSocialSharing.share("I'm part of the human chain for Fair Trade and Planet #FairTradeDay #AgentForChange", null, $scope.sharedImage, null);
-
       },
       function(err){
         console.log("canvas2ImagePlugin failure");
@@ -64,19 +57,6 @@ angular.module('app.controllers', [])
       },
       canvas
     );
-
-    return;
-    var imgURI = canvas.toDataURL("image/png");
-    console.log(canvas);
-
-    $timeout( function(){
-      console.log("downloading");
-      console.log("imgURI:\n"+imgURI);
-      var url = imgURI.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
-      window.open(url);
-      window.location.href = imgURI;
-        //$scope.image = imgURI;
-    }, 200);
   }
 
   $ionicPlatform.ready(function() {
