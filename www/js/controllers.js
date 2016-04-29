@@ -1,7 +1,8 @@
 angular.module('app.controllers', [])
 
 .controller('PosterGeneratorCtrl', function($scope, $ionicPlatform, $cordovaSocialSharing,
-  $ionicLoading, $ionicActionSheet, $location, $timeout, $ionicPopup, FileService, ImageService) {
+  $ionicLoading, $ionicActionSheet, $location, $timeout, $ionicPopup, $ionicModal, $cordovaKeyboard,
+  FileService, ImageService) {
 
   var canvas = document.getElementById('tempCanvas');
   var context = canvas.getContext('2d');
@@ -103,6 +104,10 @@ angular.module('app.controllers', [])
         if (!$scope.imageLoaded) {
           $scope.imageLoaded = true;
         }
+        var element = document.getElementById("input-name");
+        console.log(element);
+        element.focus();
+        $cordovaKeyboard.show();
         console.log("FileService.lastImage\n"+FileService.lastImage())
         console.log("$scope.urlForLastImage\n"+$scope.urlForLastImage);
       });

@@ -24,7 +24,36 @@
       </div>
     </div>
     <div style="margin: 0 0; width:75%">
+      <!--Why are you an agent for change?-->
       <img src="img/poster-template-landscape.png" style="width: 100%; height: auto; background-image:url({{urlForLastImage}}); background-position: center center; background-size: cover; background-repeat: no-repeat; position: relative;">
+      <!-- <div class="tooltip overlay-name">
+        <span id="name-tooltip" class="tooltiptext">Enter your or your organisation name</span>
+        <input id="input-name" class="name" ng-model="name" placeholder="Tap here to enter your name"
+        onblur="document.getElementById('name-tooltip').style.visibility='hidden';document.getElementById('input-slogan').focus()"
+        onfocus="document.getElementById('name-tooltip').style.visibility='visible'"></input> -->
+        <span id="name-tooltip" class="tooltip-name">Enter your or your organisation name</span>
+        <span id="slogan-tooltip" class="tooltip-slogan">Why you are an agent for change?</span>
+        <input id="input-name" class="name overlay-name" ng-model="name"
+        placeholder="Tap here to enter your name"
+        onblur="document.getElementById('name-tooltip').style.visibility='hidden'"
+        onfocus="document.getElementById('name-tooltip').style.visibility='visible'"></input>
+      <!-- </div> -->
+      <!-- <div class="overlay-slogan tooltip">
+        <span id="slogan-tooltip" class="tooltiptext">Why you are an agent for change?</span>
+        <input id="input-slogan" class="slogan" ng-model="slogan"
+        placeholder="Enter why you are an agent for change?"
+        onblur="document.getElementById('slogan-tooltip').style.visibility='hidden'"
+        onfocus="document.getElementById('slogan-tooltip').style.visibility='visible'"></input> -->
+        <input id="input-slogan" class="slogan overlay-slogan" ng-model="slogan"
+        placeholder="Enter why you are an agent for change?"
+        onblur="document.getElementById('slogan-tooltip').style.visibility='hidden'"
+        onfocus="document.getElementById('slogan-tooltip').style.visibility='visible'"></input>
+      <!-- </div> -->
+
+      <!-- <input style="border-width: 0px; position: absolute; bottom: 20%; margin-left: 5%; margin-right: 5%; width: 63%; color: #fff; font-weight: 600; font-size: larger; text-align: center;" ng-model="name" placeholder="Tap here to enter your name"></input> -->
+      <!-- <input style="border-width: 0px; position: absolute; bottom: 5%; margin-left: 5%; margin-right: 5%; width: 63%; color: #fff; font-weight: 600; font-size: larger; font-style: italic; text-align: center;" ng-model="slogan" placeholder="Enter why you are an agent for change?"></input> -->
+      <!--<div style="position: absolute; bottom: 20%; width: 73%; color: #fff; font-weight: 600; font-size: larger; text-align: center;">{{name}}</div>-->
+      <!--<div style="position: absolute; bottom: 6%; width: 73%; font-weight: 500; font-size: larger; font-style: italic; color:#fff; text-align: center;">'{{slogan}}'</div>-->
     </div>
   </ion-content>
 </ion-view><canvas id="tempCanvas"></canvas>
