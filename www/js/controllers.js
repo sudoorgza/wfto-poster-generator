@@ -115,10 +115,16 @@ angular.module('app.controllers', [])
         if (!$scope.imageLoaded) {
           $scope.imageLoaded = true;
         }
-        var element = document.getElementById("input-name");
-        console.log(element);
-        element.focus();
-        $cordovaKeyboard.show();
+        var elementName = document.getElementById("input-name");
+        var elementSlogan = document.getElementById("input-slogan");
+        console.log(elementName);
+        if (!(elementName.value)) {
+          elementName.focus();
+          $cordovaKeyboard.show();
+        } else if (!(elementSlogan.value)) {
+          elementSlogan.focus();
+          $cordovaKeyboard.show();
+        }
         console.log("FileService.lastImage\n"+FileService.lastImage())
         console.log("$scope.urlForLastImage\n"+$scope.urlForLastImage);
       });

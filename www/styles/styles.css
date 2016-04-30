@@ -49,16 +49,16 @@ input:placeholder-shown {
 .overlay-name {
   bottom: 20%;
   position: absolute;
-  margin-left: 5%;
-  margin-right: 5%;
-  width: 63%;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 69%;
 }
 
 input.name {
   border-width: 0px;
   /*width: 100%;*/
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   font-size: larger;
   text-align: center;
   background-color: transparent;
@@ -83,9 +83,9 @@ input.name {
   border-width: 0px;
   bottom: 5%;
   position: absolute;
-  margin-left: 5%;
-  margin-right: 5%;
-  width: 63%;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 69%;
   background-color: transparent;
 }
 
@@ -93,7 +93,7 @@ input.slogan {
   border-width: 0px;
   /*width: 100%;*/
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   font-size: larger;
   text-align: center;
   font-style: italic;
