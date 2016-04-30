@@ -2,6 +2,7 @@ angular.module('app.controllers', [])
 
 .controller('PosterGeneratorCtrl', function($scope, $ionicPlatform, $cordovaSocialSharing,
   $ionicLoading, $ionicActionSheet, $location, $timeout, $ionicPopup, $ionicModal, $cordovaKeyboard,
+  $cordovaInAppBrowser,
   FileService, ImageService) {
 
   var canvas = document.getElementById('tempCanvas');
@@ -103,7 +104,7 @@ angular.module('app.controllers', [])
 
     $scope.goWfto = function() {
       console.log("goWfto");
-       window.location.href = 'http://www.wfto.com';
+       $cordovaInAppBrowser.open('http://www.wfto.com','_system');
     }
 
     $scope.addImage = function(type) {

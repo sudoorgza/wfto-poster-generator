@@ -34,15 +34,16 @@ input:placeholder-shown {
 .tooltip-name {
   visibility: hidden;
   /*background-color: rgba(253,172,51,0.3);*/
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.7);
   padding: 4px;
   border-radius: 6px;
   color: #333;
-  bottom: 25%;
+  bottom: 26%;
   position: absolute;
-  margin-left: 5%;
-  margin-right: 5%;
-  width: 63%;
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 43%;
+  text-align: center;
 }
 
 .overlay-name {
@@ -66,15 +67,16 @@ input.name {
 .tooltip-slogan {
   visibility: hidden;
   /*background-color: rgba(253,172,51,0.3);*/
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.7);
   padding: 4px;
   border-radius: 6px;
   color: #333;
-  bottom: 10%;
+  bottom: 11%;
   position: absolute;
-  margin-left: 5%;
-  margin-right: 5%;
-  width: 63%;
+  margin-left: 14%;
+  margin-right: 14%;
+  width: 45%;
+  text-align: center;
 }
 
 .overlay-slogan {
