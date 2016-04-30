@@ -10,16 +10,26 @@ angular.module('app.controllers', [])
   var templateImage = new Image();
   var SHARING_TEXT = "I'm part of the human chain for Fair Trade and Planet \
 #FairTradeDay #AgentForChange";
+  var IMAGE_WIDTH = 2000;
+  var IMAGE_HEIGHT = 1414;
+
 
   var updateCanvas = function() {
     baseImage.src = $scope.urlForLastImage;
     templateImage.src = $scope.urlForOverlay;
-    var width = baseImage.width;
-    var height = baseImage.height;
-    canvas.width = templateImage.width;
-    canvas.height = templateImage.height;
-    context.drawImage(baseImage,0,0,2000,1414);
-    context.drawImage(templateImage,0,0,2000,1414);
+    canvas.width = IMAGE_WIDTH;
+    canvas.height = IMAGE_HEIGHT;
+    context.save();
+    context.drawImage(baseImage,0,0,IMAGE_WIDTH,IMAGE_HEIGHT);
+    context.drawImage(templateImage,0,0,IMAGE_WIDTH,IMAGE_HEIGHT);
+    context.restore();
+    context.fillStyle = 'white';
+    context.font="normal normal 600 64px Roboto";
+    nameWidth = context.measureText($scope.name).width;
+    context.fillText($scope.name,(IMAGE_WIDTH-nameWidth)/2,IMAGE_HEIGHT*0.81);
+    context.font="italic normal 600 64px Roboto";
+    sloganWidth = context.measureText($scope.slogan).width;
+    context.fillText($scope.slogan,(IMAGE_WIDTH-sloganWidth)/2,IMAGE_HEIGHT*0.97);
   }
 
   var sharedImageChanged = function() {
