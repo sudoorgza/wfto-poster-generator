@@ -76,6 +76,17 @@ angular.module('app.services', ['ngCordova'])
   function saveMedia(type) {
     return $q(function(resolve, reject) {
 
+      cordova.plugins.diagnostic.getCameraAuthorizationStatus(function(status){
+        console.log("Camera authorization status: " + status);
+        cordova.plugins.diagnostic.requestCameraAuthorization(function(status){
+          console.log("Authorization status for camera is " + status);
+        }, function(error){
+          console.error(error);
+        });
+      }, function(error) {
+        console.error(error);
+      });
+
       var options = optionsForType(type);
 
       $cordovaCamera.getPicture(options).then(function(imageUrl) {
